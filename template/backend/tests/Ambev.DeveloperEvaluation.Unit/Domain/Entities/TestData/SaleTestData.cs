@@ -8,7 +8,7 @@ public static class SaleTestData
         return new Faker<Sale>()
             .RuleFor(s => s.SaleNumber, f => f.Random.Int(1, 1000))
             .RuleFor(s => s.SaleDate, f => f.Date.Past())
-            .RuleFor(s => s.CustomerId, f => f.Random.Int(1, 100))
+            .RuleFor(s => s.IdUser, f => f.Random.Guid())
             .RuleFor(s => s.TotalAmount, f => f.Finance.Amount())
             .RuleFor(s => s.SaleItems, f => new List<SaleItem>
             {

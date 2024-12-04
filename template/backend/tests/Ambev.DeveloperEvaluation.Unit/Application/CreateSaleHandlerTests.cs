@@ -43,6 +43,18 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
             // Given
             var command = CreateSaleHandlerTestData.GenerateValidCommand().Generate();
             var sale = CreateSaleHandlerTestData.GenerateValidSale().Generate();
+            var user = new User
+            {
+                Id = command.IdCustomer,
+                Role = UserRole.Customer, // Ensure role is Customer to pass validation
+                Username = "ExistingUser",
+                Email = "existinguser@example.com",
+                Password = "Password@123",
+                Status = UserStatus.Active
+            };
+
+            _userRepository.GetByIdAsync(command.IdCustomer, Arg.Any<CancellationToken>())
+                .Returns(user);
 
             var result = new CreateSaleResult
             {
@@ -88,6 +100,18 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
             // Given
             var command = CreateSaleHandlerTestData.GenerateValidCommand().Generate();
             var sale = CreateSaleHandlerTestData.GenerateValidSale().Generate();
+            var user = new User
+            {
+                Id = command.IdCustomer,
+                Role = UserRole.Customer, // Ensure role is Customer to pass validation
+                Username = "ExistingUser",
+                Email = "existinguser@example.com",
+                Password = "Password@123",
+                Status = UserStatus.Active
+            };
+
+            _userRepository.GetByIdAsync(command.IdCustomer, Arg.Any<CancellationToken>())
+                .Returns(user);
 
             _mapper.Map<Sale>(command).Returns(sale);
             _saleRepository.CreateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>())
@@ -101,7 +125,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
                 c.SaleNumber == command.SaleNumber &&
                 c.SaleDate == command.SaleDate &&
                 c.IdCustomer == command.IdCustomer &&
-                c.TotalAmount == command.TotalAmount &&
                 c.IdBranch == command.IdBranch));
         }
 

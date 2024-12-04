@@ -39,7 +39,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 
             var existingUser = await _userRepository.GetByIdAsync(command.IdCustomer, cancellationToken);
 
-            if (existingUser != null && existingUser.Role != Domain.Enums.UserRole.Customer)
+            if (existingUser is null || (existingUser != null && existingUser.Role != Domain.Enums.UserRole.Customer))
                 throw new InvalidOperationException($"Invalid User");
 
             var sale = _mapper.Map<Sale>(command);
