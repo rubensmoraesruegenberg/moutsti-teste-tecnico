@@ -17,7 +17,7 @@ namespace Ambev.DeveloperEvaluation.Common.Security
         /// Obtém o identificador do usuário que realizou a venda.
         /// </summary>
         /// <returns>O ID do usuário como uma string.</returns>
-        public int UserId { get; }
+        public Guid IdUser { get; }
 
         /// <summary>
         /// Obtém a data da venda.

@@ -12,18 +12,21 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
     public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleResult>
     {
         private readonly ISaleRepository _saleRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Initializes a new instance of CreateSaleHandler
         /// </summary>
         /// <param name="saleRepository">The Sale repository</param>
+        /// <param name="userRepository">The user repository</param>
         /// <param name="mapper">The AutoMapper instance</param>
         /// <param name="validator">The validator for CreateSaleCommand</param>
-        public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper)
+        public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper, IUserRepository userRepository)
         {
             _saleRepository = saleRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
@@ -34,10 +37,19 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
+            var existingUser = await _userRepository.GetByIdAsync(command.IdCustomer, cancellationToken);
+
+            if (existingUser != null && existingUser.Role != Domain.Enums.UserRole.Customer)
+                throw new InvalidOperationException($"Invalid User");
+
             var sale = _mapper.Map<Sale>(command);
 
+            sale.ApplyDiscount();
+
             var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
+            
             var result = _mapper.Map<CreateSaleResult>(createdSale);
+            
             return result;
         }
     }

@@ -1,6 +1,7 @@
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Unit.Domain;
 using AutoMapper;
@@ -48,7 +49,7 @@ public class CreateUserHandlerTests
             Email = command.Email,
             Phone = command.Phone,
             Status = command.Status,
-            Role = command.Role
+            Role = UserRole.Admin,
         };
 
         var result = new CreateUserResult

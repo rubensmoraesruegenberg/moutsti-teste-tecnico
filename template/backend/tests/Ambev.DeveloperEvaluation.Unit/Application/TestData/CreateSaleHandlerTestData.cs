@@ -9,7 +9,7 @@ public static class CreateSaleHandlerTestData
         return new Faker<CreateSaleCommand>()
             .RuleFor(c => c.SaleNumber, f => f.Random.Int(1, 1000))
             .RuleFor(c => c.SaleDate, f => f.Date.Past())
-            .RuleFor(c => c.IdCustomer, f => f.Random.Int(1, 100))
+            .RuleFor(c => c.IdCustomer, f => f.Random.Guid())
             .RuleFor(c => c.TotalAmount, f => f.Finance.Amount())
             .RuleFor(c => c.IdBranch, f => f.Random.Int(1, 10))
             .RuleFor(c => c.SaleItems, f => new List<SaleItem>

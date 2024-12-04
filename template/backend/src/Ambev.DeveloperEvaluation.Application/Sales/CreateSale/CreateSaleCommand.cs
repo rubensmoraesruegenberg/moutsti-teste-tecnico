@@ -22,7 +22,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// <summary>
         /// Gets or sets the customer information.
         /// </summary>
-        public int IdCustomer { get; set; } = 0;
+        public Guid IdCustomer { get; set; }
 
         /// <summary>
         /// Gets or sets the total amount of the sale.

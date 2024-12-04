@@ -16,11 +16,19 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// </remarks>
         public CreateSaleCommandValidator()
         {
-            //RuleFor(sale => sale.IdBranch).GreaterThan(0).WithMessage("O valor de IdBranch deve ser maior que 0.");
             RuleFor(sale => sale.IdBranch).GreaterThan(0);
-            RuleFor(sale => sale.IdCustomer) .GreaterThan(0) .WithMessage("O valor de IdCustomer deve ser maior que 0.");
-            RuleFor(sale => sale.TotalAmount).GreaterThan(0).WithMessage("O valor de TotalAmount deve ser maior que 0."); 
-            RuleFor(sale => sale.SaleItems) .NotEmpty() .WithMessage("A lista de SaleItems não pode estar vazia.");
+            RuleFor(sale => sale.IdCustomer)
+                .NotEmpty()
+                .WithMessage("The value of IdCustomer must be greater than 0.")
+                .Must(id => Guid.TryParse(id.ToString(), out _))
+                .WithMessage("The value of IdCustomer must be a valid GUID.");
+
+            RuleFor(sale => sale.TotalAmount)
+                .GreaterThan(0)
+                .WithMessage("User ID is required.");
+            RuleFor(sale => sale.SaleItems)
+                .NotEmpty()
+                .WithMessage("The list of SaleItems cannot be empty.");
 
         }
     }
