@@ -13,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public bool IsCancelled { get; set; }
         public int CustomerId { get; set; }
         public DateTime Date { get; set; }
-        public object BranchId { get; set; }
+        public Guid BranchId { get; set; }
         string ISale.Id => Id.ToString();
         public SaleStatus Status { get; set; }
 
@@ -64,6 +64,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
 
     public class SaleItem
     {
+        public Guid Id { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

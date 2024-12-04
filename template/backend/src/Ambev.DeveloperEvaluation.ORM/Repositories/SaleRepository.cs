@@ -22,16 +22,16 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <param name="Sale">The Sale to create</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The created user</returns>
-        //public async Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
-        //{
-        //    await _context.Sales.AddAsync(sale, cancellationToken);
-        //    await _context.SaveChangesAsync(cancellationToken);
-        //    return sale;
-        //}
-
-        public Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
+        public async Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await _context.Sales.AddAsync(sale, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return sale;
         }
+
+        //public Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
