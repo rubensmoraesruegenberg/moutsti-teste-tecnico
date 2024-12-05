@@ -58,7 +58,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             var result = new CreateSaleResult
             {
-                SaleNumber = sale.SaleNumber
+                SaleNumber = sale.Id
             };
 
             _mapper.Map<Sale>(command).Returns(sale);
@@ -71,7 +71,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             // Then
             createSaleResult.Should().NotBeNull();
-            createSaleResult.SaleNumber.Should().Be(sale.SaleNumber);
+            createSaleResult.SaleNumber.Should().Be(sale.Id);
             await _saleRepository.Received(1).CreateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>());
         }
 
@@ -122,7 +122,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             // Then
             _mapper.Received(1).Map<Sale>(Arg.Is<CreateSaleCommand>(c =>
-                c.SaleNumber == command.SaleNumber &&
                 c.SaleDate == command.SaleDate &&
                 c.IdCustomer == command.IdCustomer &&
                 c.IdBranch == command.IdBranch));
@@ -178,7 +177,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             var result = new CreateSaleResult
             {
-                SaleNumber = sale.SaleNumber
+                SaleNumber = sale.Id
             };
 
             _userRepository.GetByIdAsync(command.IdCustomer, Arg.Any<CancellationToken>())
@@ -194,7 +193,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             // Then
             createSaleResult.Should().NotBeNull();
-            createSaleResult.SaleNumber.Should().Be(sale.SaleNumber);
+            createSaleResult.SaleNumber.Should().Be(sale.Id);
             await _saleRepository.Received(1).CreateAsync(Arg.Any<Sale>(), Arg.Any<CancellationToken>());
             await _userRepository.Received(1).GetByIdAsync(command.IdCustomer, Arg.Any<CancellationToken>());
         }

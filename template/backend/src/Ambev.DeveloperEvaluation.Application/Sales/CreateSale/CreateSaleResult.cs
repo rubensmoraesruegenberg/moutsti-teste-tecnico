@@ -2,6 +2,6 @@
 {
     public class CreateSaleResult
     {
-        public object SaleNumber { get; set; }
+        public Guid SaleNumber { get; set; }
     }
 }

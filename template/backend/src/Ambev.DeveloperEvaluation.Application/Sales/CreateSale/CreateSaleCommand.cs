@@ -4,10 +4,6 @@ using MediatR;
 
 public class CreateSaleCommand : IRequest<CreateSaleResult>
 {
-    /// <summary>
-    /// Gets or sets the sale number.
-    /// </summary>
-    public int SaleNumber { get; set; } = 0;
 
     /// <summary>
     /// Gets or sets the date of the sale.
@@ -27,7 +23,12 @@ public class CreateSaleCommand : IRequest<CreateSaleResult>
     /// <summary>
     /// Gets or sets the list of sale items.
     /// </summary>
-    public List<SaleItemDto> SaleItems { get; set; } = new List<SaleItemDto>(); // Usar Dto para SaleItems
+    public List<SaleItemComand> SaleItems { get; set; } = new List<SaleItemComand>(); // Usar Dto para SaleItems
+
+    /// <summary>
+    /// Gets or sets the Cancelled information.
+    /// </summary>
+    public bool IsCancelled { get; set; }
 
     /// <summary>
     /// Validates the create sale command.
@@ -45,12 +46,11 @@ public class CreateSaleCommand : IRequest<CreateSaleResult>
     }
 }
 
-public class SaleItemDto
+public class SaleItemComand
 {
-    public int IdProduct { get; set; }
+    public Guid IdProduct { get; set; }
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Discount { get; set; }
     public decimal TotalAmount { get; set; }
-    public bool IsCancelled { get; set; }
 }

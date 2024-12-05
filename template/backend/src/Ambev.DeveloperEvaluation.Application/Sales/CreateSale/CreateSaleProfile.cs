@@ -14,11 +14,12 @@ public class CreateSaleProfile : Profile
     /// </summary>
     public CreateSaleProfile()
     {
-        CreateMap<Sale, CreateSaleResult>();
+        CreateMap<Sale, CreateSaleResult>()
+            .ForMember(dest => dest.SaleNumber, opt => opt.MapFrom(src => src.Id));
         CreateMap<CreateSaleCommand, Sale>()
             .ForMember(dest => dest.SaleItems, opt => opt.MapFrom(src => src.SaleItems))
             .ForMember(dest => dest.IdUser, opt => opt.MapFrom(src => src.IdCustomer));
 
-        CreateMap<SaleItemDto, SaleItem>();
+        CreateMap<SaleItemComand, SaleItem>();
     }
 }

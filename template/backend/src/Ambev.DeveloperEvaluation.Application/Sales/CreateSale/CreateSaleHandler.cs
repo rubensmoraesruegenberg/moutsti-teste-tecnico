@@ -1,8 +1,10 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using System.Net.NetworkInformation;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 {
@@ -45,6 +47,8 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
             var sale = _mapper.Map<Sale>(command);
 
             sale.ApplyDiscount();
+            sale.UpdateTotalAmount();
+            sale.Status = SaleStatus.Active;
 
             var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
             

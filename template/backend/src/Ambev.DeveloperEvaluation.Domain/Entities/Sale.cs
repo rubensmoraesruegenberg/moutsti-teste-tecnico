@@ -6,12 +6,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     public class Sale : BaseEntity, ISale
     {
-        public int SaleNumber { get; set; }
         public DateTime SaleDate { get; set; }
         public decimal TotalAmount { get; set; }
         public List<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
         public bool IsCancelled { get; set; }
-        public DateTime Date { get; set; }
         public Guid IdBranch { get; set; }
         string ISale.Id => Id.ToString();
         public SaleStatus Status { get; set; }
@@ -39,7 +37,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
                     item.Discount = 0m; // Sem desconto para menos de 4 itens
                 }
 
-                item.TotalAmount = item.Quantity * item.UnitPrice * (1 - item.Discount);
+                item.TotalAmount = item.Discount == 0 ? item.Quantity * item.UnitPrice * (1 - item.Discount) : item.Quantity * item.UnitPrice;
             }
 
             // Atualiza o TotalAmount com a soma dos UnitPrice dos itens
@@ -56,6 +54,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             SaleItems.Add(item);
             // Atualiza o TotalAmount com a soma dos UnitPrice dos itens
             TotalAmount = SaleItems.Sum(i => i.Quantity * i.UnitPrice * (1 - i.Discount));
+        }
+
+        public void UpdateTotalAmount() { 
+            TotalAmount = SaleItems.Sum(i => i.Quantity * i.UnitPrice * (1 - i.Discount)); 
         }
     }
 

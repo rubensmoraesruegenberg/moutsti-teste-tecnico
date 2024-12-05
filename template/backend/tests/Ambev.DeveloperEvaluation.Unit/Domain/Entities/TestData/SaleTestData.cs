@@ -6,7 +6,7 @@ public static class SaleTestData
     public static Faker<Sale> GenerateValidSale()
     {
         return new Faker<Sale>()
-            .RuleFor(s => s.SaleNumber, f => f.Random.Int(1, 1000))
+            .RuleFor(s => s.Id, f => f.Random.Guid())
             .RuleFor(s => s.SaleDate, f => f.Date.Past())
             .RuleFor(s => s.IdUser, f => f.Random.Guid())
             .RuleFor(s => s.TotalAmount, f => f.Finance.Amount())

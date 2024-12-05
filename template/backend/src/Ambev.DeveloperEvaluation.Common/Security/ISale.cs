@@ -19,11 +19,6 @@ namespace Ambev.DeveloperEvaluation.Common.Security
         /// <returns>O ID do usuário como uma string.</returns>
         public Guid IdUser { get; }
 
-        /// <summary>
-        /// Obtém a data da venda.
-        /// </summary>
-        /// <returns>A data da venda como uma string.</returns>
-        public DateTime Date { get; }
 
         /// <summary>
         /// Obtém o valor total da venda.

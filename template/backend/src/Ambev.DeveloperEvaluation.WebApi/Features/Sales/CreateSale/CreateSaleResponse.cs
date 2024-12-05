@@ -2,7 +2,7 @@
 {
     public class CreateSaleResponse
     {
-        public int SaleNumber { get; set; }
+        public Guid SaleNumber { get; set; }
     }
 
 }

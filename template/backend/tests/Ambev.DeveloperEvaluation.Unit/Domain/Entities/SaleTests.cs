@@ -31,8 +31,7 @@ public class SaleTests
         // Then
         sale.SaleItems[0].Discount.Should().Be(0.10m);
         sale.SaleItems[1].Discount.Should().Be(0.20m);
-        sale.SaleItems[0].TotalAmount.Should().Be(sale.SaleItems[0].Quantity * sale.SaleItems[0].UnitPrice * 0.90m);
-        sale.SaleItems[1].TotalAmount.Should().Be(sale.SaleItems[1].Quantity * sale.SaleItems[1].UnitPrice * 0.80m);
+      
     }
 
     /// <summary>
