@@ -30,6 +30,14 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The total count of sales.</returns>
         Task<int> GetSalesCountAsync(CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Retrieves a Sale by their unique identifier
+        /// </summary>
+        /// <param name="id">The unique identifier of the Sale</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The Sale if found, null otherwise</returns>
+        Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     }
 
 }

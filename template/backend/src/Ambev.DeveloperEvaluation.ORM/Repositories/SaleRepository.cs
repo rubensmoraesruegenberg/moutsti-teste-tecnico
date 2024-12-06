@@ -1,6 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.ORM;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
@@ -31,6 +30,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             return sale;
         }
 
+
         /// <summary>
         /// Gets a paginated list of sales
         /// </summary>
@@ -52,11 +52,23 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The total count of sales</returns>
+        public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Sales.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        }
+
+
+        /// <summary>
+        /// Gets the total count of sales
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The total count of sales</returns>
         public async Task<int> GetSalesCountAsync(CancellationToken cancellationToken)
         {
             return await _context.Sales.CountAsync(cancellationToken);
         }
-
-
     }
 }
+
+
+
