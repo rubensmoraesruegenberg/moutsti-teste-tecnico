@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.ORM;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
@@ -66,6 +67,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public async Task<int> GetSalesCountAsync(CancellationToken cancellationToken)
         {
             return await _context.Sales.CountAsync(cancellationToken);
+        }
+
+        public async Task UpdateAsync(Sale sale, CancellationToken cancellationToken)
+        {
+            _context.Sales.Update(sale);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
