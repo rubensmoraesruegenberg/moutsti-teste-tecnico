@@ -1,5 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.ORM;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
@@ -29,9 +31,32 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             return sale;
         }
 
-        //public Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// Gets a paginated list of sales
+        /// </summary>
+        /// <param name="pageNumber">The page number</param>
+        /// <param name="pageSize">The page size</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The paginated list of sales</returns>
+        public async Task<IEnumerable<Sale>> GetSalesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+        {
+            return await _context.Sales
+                .Include(s => s.SaleItems)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken); 
+        }
+
+        /// <summary>
+        /// Gets the total count of sales
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The total count of sales</returns>
+        public async Task<int> GetSalesCountAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Sales.CountAsync(cancellationToken);
+        }
+
+
     }
 }

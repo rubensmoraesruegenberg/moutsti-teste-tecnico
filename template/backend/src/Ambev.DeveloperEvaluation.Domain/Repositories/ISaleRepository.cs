@@ -14,6 +14,24 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The created sale.</returns>
         Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default);
-        
+
+        /// <summary>
+        /// Gets a paginated list of sales from the repository.
+        /// </summary>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The paginated list of sales.</returns>
+        Task<IEnumerable<Sale>> GetSalesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets the total count of sales in the repository.
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The total count of sales.</returns>
+        Task<int> GetSalesCountAsync(CancellationToken cancellationToken);
     }
+
 }
+
+
