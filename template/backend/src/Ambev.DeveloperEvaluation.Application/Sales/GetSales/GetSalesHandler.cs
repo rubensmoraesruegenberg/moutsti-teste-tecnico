@@ -29,7 +29,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSales
             var sales = await _saleRepository.GetSalesAsync(command.PageNumber, command.PageSize, cancellationToken);
             var totalSales = await _saleRepository.GetSalesCountAsync(cancellationToken);
 
-            var salesResponse = _mapper.Map<List<GetSalesResult>>(sales);
+            var salesResponse = _mapper.Map<List<GetSalesResult>>(sales.Where(c => c.IsCancelled == false));
 
             return new GetSalesPaginatedResult<GetSalesResult>
             {

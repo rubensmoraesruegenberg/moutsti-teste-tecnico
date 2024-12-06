@@ -15,6 +15,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public SaleStatus Status { get; set; }
         public Guid IdUser { get; set; }
 
+        public void ApplyCancelle()
+        {
+            IsCancelled = true;
+        }
         public void ApplyDiscount()
         {
             foreach (var item in SaleItems)
@@ -56,8 +60,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             TotalAmount = SaleItems.Sum(i => i.Quantity * i.UnitPrice * (1 - i.Discount));
         }
 
-        public void UpdateTotalAmount() { 
-            TotalAmount = SaleItems.Sum(i => i.Quantity * i.UnitPrice * (1 - i.Discount)); 
+        public void UpdateTotalAmount()
+        {
+            TotalAmount = SaleItems.Sum(i => i.Quantity * i.UnitPrice * (1 - i.Discount));
         }
     }
 

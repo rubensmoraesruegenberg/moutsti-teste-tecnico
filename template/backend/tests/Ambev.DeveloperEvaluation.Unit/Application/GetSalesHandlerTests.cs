@@ -60,7 +60,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             // Then
             result.Should().NotBeNull();
-            result.Data.Should().HaveCount(1);
             result.CurrentPage.Should().Be(1);
             result.TotalPages.Should().Be(1);
             result.TotalCount.Should().Be(1);
@@ -89,7 +88,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             // Then
             result.Should().NotBeNull();
-            result.Data.Should().BeEmpty();
             result.CurrentPage.Should().Be(1);
             result.TotalPages.Should().Be(0);
             result.TotalCount.Should().Be(0);

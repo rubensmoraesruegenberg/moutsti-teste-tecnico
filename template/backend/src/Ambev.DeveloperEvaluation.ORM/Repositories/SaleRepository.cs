@@ -10,7 +10,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         private readonly DefaultContext _context;
 
         /// <summary>
-        /// Initializes a new instance of UserRepository
+        /// Initializes a new instance of saleRepository
         /// </summary>
         /// <param name="context">The database context</param>
         public SaleRepository(DefaultContext context)
@@ -23,7 +23,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="Sale">The Sale to create</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>The created user</returns>
+        /// <returns>The created sale</returns>
         public async Task<Sale> CreateAsync(Sale sale, CancellationToken cancellationToken = default)
         {
             await _context.Sales.AddAsync(sale, cancellationToken);
@@ -73,6 +73,23 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         {
             _context.Sales.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Deletes a sale from the database
+        /// </summary>
+        /// <param name="id">The unique identifier of the sale to delete</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True if the sale was deleted, false if not found</returns>
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var sale = await GetByIdAsync(id, cancellationToken);
+            if (sale == null)
+                return false;
+
+            _context.Sales.Remove(sale);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }
